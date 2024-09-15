@@ -1,0 +1,142 @@
+<div class="container">
+    <div class="m-3">
+        <div class="card">
+            <div class="card-header">
+                <div class="m-2">
+                    <div class="d-flex justify-content-end">
+                        <td>
+                            <button data-bs-toggle="modal" data-bs-target="#addLanguageModal"
+                                class="btn btn-warning"><fa-icon [icon]="faAdd"></fa-icon>
+                            </button>
+                        </td>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Sl No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let framework of FrameworkList">
+                        <th>1</th>
+                        <td>{{framework.frameworkName}}</td>
+                        <td>
+
+                            <button (click)="loadUpdateData(framework.frameworkId!)"
+                                class="btn btn-success m-1"><fa-icon [icon]="faEdit"></fa-icon></button>
+                            <button (click)="onDeleteButtonClick(framework.frameworkId!)"
+                                class="btn btn-danger"><fa-icon [icon]="faDelete"></fa-icon></button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!--add Modal -->
+<div class="modal fade" id="addLanguageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Framework</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label for="languageName" class="form-label">Framework</label>
+                    <input type="text" [(ngModel)]="frameworkToAdd.frameworkName" class="form-control"
+                        name="frameworkName" id="frameworkName">
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" (click)="addFramworks()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--update Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayUpdateModal}"
+    [ngStyle]="{'overflow': hidden}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Framework</h4>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="languageName" class="form-label">Framework Name</label>
+                    <input type="text" [(ngModel)]="frameworkToUpdate.frameworkName" class="form-control"
+                        name="topicName" id="topicName">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="updateFramework()">Update Language</button>
+                <button type="button" class="btn btn-default" (click)="closeUpdateModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- delete modal -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':deleteModal}" [ngStyle]="{'overflow': hidden}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Framework</h4>
+            </div>
+            <div class="modal-body">
+                <p>Want To Delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="deleteFramework()">Delete</button>
+                <button type="button" class="btn btn-default" (click)="closeDeleteModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- test model -->
+
+<!-- <button type="button" class="btn btn-info btn-lg" (click)="openModal()">click to open</button>
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" [ngStyle]="{'overflow': hidden}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Language</h4>
+            </div>
+            <div class="modal-body">
+                <p>Model body text</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->

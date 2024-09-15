@@ -1,0 +1,323 @@
+<div class="container">
+    <!-- <h1> {{searchLanguageId}}</h1> -->
+    <div class="m-3">
+        <div class="card">
+            <div class="card-header">
+                <div class="m-2">
+                    <div class="d-flex justify-content-end">
+
+                        <button data-bs-toggle="modal" data-bs-target="#addLanguageModal"
+                            class="btn btn-warning"><fa-icon [icon]="faAdd"></fa-icon>
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <label for="language" class="form-label">Language</label>
+                        <select [(ngModel)]="searchLanguageId" class="form-select" name="searchLanguage"
+                            id="searchLanguage">
+                            <option *ngFor="let lagnguage of languageList" value="{{lagnguage.languageId}}">
+                                {{lagnguage.languageName}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-3">
+                        <label for="topic" class="form-label">Topic</label>
+                        <select [(ngModel)]="searchTopicId" class="form-select" name="searchTopicId" id="searchTopicId"
+                            class="form-select">
+                            <option *ngFor="let topic of topicList" value="{{topic.topicId}}">
+                                {{topic.topicName}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-3">
+                        <label for="framework" class="form-label">Framework</label>
+                        <select [(ngModel)]="searchFrameworkId" name="searchFrameworkId" id="searchFrameworkId"
+                            class="form-select">
+
+                            <option *ngFor="let framework of frameworkList" value="{{framework.frameworkId}}">
+                                {{framework.frameworkName}}
+                            </option>
+
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="searchTitle" class="form-label">Snippet Title</label>
+                        <input [(ngModel)]="searchTitle" type="text" class="form-control" name="searchTitle"
+                            id="searchTitle">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 m-2">
+                        <button (click)="onSearchBtnClick()" class="btn btn-success">Search</button>
+                    </div>
+
+                </div>
+            </div>
+            <table class=" table table-striped">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Sl No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let snippet of snippetList">
+                        <th>1</th>
+                        <td>{{snippet.snippetTitle}}</td>
+                        <td>
+
+                            <button (click)="loadUpdateData(snippet.snippetId!)" class="btn btn-success m-1"><fa-icon
+                                    [icon]="faEdit"></fa-icon></button>
+                            <button (click)="onDeleteButtonClick(snippet.snippetId!)"
+                                class="btn btn-danger m-1"><fa-icon [icon]="faDelete"></fa-icon></button>
+
+                            <button (click)="onViewButtonClick(snippet.snippetId!)" class="btn btn-success m-1"><fa-icon
+                                    [icon]="faEye"></fa-icon></button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!--add Modal -->
+<div class="modal fade" id="addLanguageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Language</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label for="snippetTitle" class="form-label">Snippet Title </label>
+                    <input type="text" [(ngModel)]="snippetToAdd.snippetTitle" class="form-control" name="snippetTitle"
+                        id="snippetTitle">
+                </div>
+
+
+
+                <div class="mb-3">
+                    <label for="snippetSubject" class="form-label">Snippet Subject</label>
+                    <input type="text" [(ngModel)]="snippetToAdd.snippetSubject" class="form-control"
+                        name="snippetSubject" id="snippetSubject">
+                </div>
+
+                <div class="mb-3">
+                    <label for="snippetBody" class="form-label">Snippet Body</label>
+                    <input type="text" [(ngModel)]="snippetToAdd.snippetBody" class="form-control" name="snippetBody"
+                        id="snippetBody">
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="languageId" class="form-label">Language</label>
+
+                    <select class="form-select" name="languageId" id="languageId" [(ngModel)]="snippetToAdd.languageId">
+
+                        <option *ngFor="let lagnguage of languageList" value="{{lagnguage.languageId}}">
+                            {{lagnguage.languageName}}</option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="topicId" class="form-label">Topic</label>
+
+                    <select class="form-select" name="topicId" id="topicId" [(ngModel)]="snippetToAdd.topicId">
+
+                        <option *ngFor="let topic of topicList" value="{{topic.topicId}}">
+                            {{topic.topicName}}
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="topicId" class="form-label">Framework</label>
+
+                    <select class="form-select" name="topicId" id="topicId" [(ngModel)]="snippetToAdd.framewrokId">
+
+                        <option *ngFor="let framework of frameworkList" value="{{framework.frameworkId}}">
+                            {{framework.frameworkName}}
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" (click)="addSnippets()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--update Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayUpdateModal}"
+    [ngStyle]="{'overflow': hidden}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Language</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label for="snippetTitle" class="form-label">Snippet Title </label>
+                    <input type="text" [(ngModel)]="snippetToUpdate.snippetTitle" class="form-control"
+                        name="snippetTitle" id="snippetTitle">
+                </div>
+
+
+
+                <div class="mb-3">
+                    <label for="snippetSubject" class="form-label">Snippet Subject</label>
+                    <input type="text" [(ngModel)]="snippetToUpdate.snippetSubject" class="form-control"
+                        name="snippetSubject" id="snippetSubject">
+                </div>
+
+                <div class="mb-3">
+                    <label for="snippetBody" class="form-label">Snippet Body</label>
+                    <input type="text" [(ngModel)]="snippetToUpdate.snippetBody" class="form-control" name="snippetBody"
+                        id="snippetBody">
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="languageId" class="form-label">Language</label>
+
+                    <select class="form-select" name="languageId" id="languageId"
+                        [(ngModel)]="snippetToUpdate.languageId">
+
+                        <option *ngFor="let lagnguage of languageList" value="{{lagnguage.languageId}}">
+                            {{lagnguage.languageName}}</option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="topicId" class="form-label">Topic</label>
+
+                    <select class="form-select" name="topicId" id="topicId" [(ngModel)]="snippetToUpdate.topicId">
+
+                        <option *ngFor="let topic of topicList" value="{{topic.topicId}}">
+                            {{topic.topicName}}
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="topicId" class="form-label">Framework</label>
+
+                    <select class="form-select" name="topicId" id="topicId" [(ngModel)]="snippetToUpdate.framewrokId">
+
+                        <option *ngFor="let framework of frameworkList" value="{{framework.frameworkId}}">
+                            {{framework.frameworkName}}
+                        </option>
+
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="updateSnippet()">Update
+                    Language</button>
+                <button type="button" class="btn btn-default" (click)="closeUpdateModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- delete modal -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':deleteModal}" [ngStyle]="{'overflow': hidden}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Language</h4>
+            </div>
+            <div class="modal-body">
+                <p>Want To Delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="deleteSnippet()">Delete</button>
+                <button type="button" class="btn btn-default" (click)="closeDeleteModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- test model -->
+
+<!-- <button type="button" class="btn btn-info btn-lg" (click)="openModal()">click to open</button>
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" [ngStyle]="{'overflow': hidden}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Language</h4>
+            </div>
+            <div class="modal-body">
+                <p>Model body text</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+<!-- View  modal -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayViewModal}"
+    [ngStyle]="{'overflow': hidden}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Snippet Body</h4>
+            </div>
+            <div class="modal-body">
+                <p>Want To Delete?</p>
+                <!-- <textarea class="form-control" id="exampleFormControlTextarea1" ></textarea> -->
+                <textarea class="form-control" id="snippetBody" name="snippetBody"
+                    [(ngModel)]="viewSnippet.snippetBody"></textarea>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" (click)="closeViewModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
